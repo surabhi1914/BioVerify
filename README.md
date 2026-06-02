@@ -2,7 +2,7 @@
 
 A detection-then-classification pipeline for validating species identity in noisy iNaturalist predator-prey interaction images using LLaMA-generated prompts, GroundingDINO localization, and BioCLIP2 taxonomic classification.
 
-![Python](https://img.shields.io/badge/Python-3.x-blue)
+![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-ee4c2c)
 ![Transformers](https://img.shields.io/badge/HuggingFace-Transformers-yellow)
 ![BioCLIP2](https://img.shields.io/badge/BioCLIP2-Taxonomic%20Classification-green)
