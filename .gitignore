@@ -1,0 +1,35 @@
+# Large / licensed image data
+EDA/Dataset/
+Dataset/
+image_dataset/
+output_crop/
+outputs_crop/
+outputs_sam/
+*.jpg
+*.jpeg
+*.png
+*.tif
+*.tiff
+*.webp
+
+# Model weights
+models/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+
+# Python/cache
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+
+# Environment/secrets
+.env
+venv/
+.venv/
+
+# System files
+.DS_Store
+Thumbs.db
