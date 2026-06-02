@@ -101,7 +101,7 @@ Pass, Near-Match, or Human Review Flag
 | Genus           |   81.31% |
 | Species         |   71.93% |
 
-### GroundingDINO Prompt Engineering Improvement
+### GroundingDINO Prompt Engineering Improvement - Test Case Analysis
 
 - Generic prompts: 63% clear detections, 37% ambiguous, 0 missed
 - LLaMA-optimized prompts: 84% clear detections, approximately 15% ambiguous
@@ -250,59 +250,54 @@ BioVerify/
 
 ### Key Files and Folders
 
-| Path | Purpose |
-| ---- | ------- |
-| `EDA/README.txt` | Documents the iNaturalist export query and column meanings for the Who-Eats-Whom observations. |
-| `EDA/Cleaning.ipynb` | Pulls observation data from the iNaturalist API and performs preprocessing / cleaning. |
-| `EDA/link.ipynb` | Extracts and checks partner-observation links from iNaturalist observation fields. |
-| `EDA/obs_check.ipynb` | Evaluates whether observation and partner IDs are present in the processed dataset. |
-| `EDA/Phylum_Class_Distribution.ipynb` | Computes phylum/class distribution summaries and sample selections. |
-| `EDA/Dataset.csv` | Main processed CSV used by downstream pipeline stages; includes observation IDs, photo URLs, labels, predator/prey fields, and taxonomy columns. |
-| `EDA/check.csv` | Observation/partner-ID verification table with match flags. |
-| `EDA/correct.csv` | Invalid-link correction/check table with `Invalid_link`, `category`, and `correct` columns. |
-| `EDA/link1.csv` | Observation records with extracted `partner_ids`. |
-| `EDA/observations-704882.csv` | iNaturalist Who-Eats-Whom observation export. |
-| `EDA/project_41347_research_observations.csv` | Research-grade observation metadata pulled from the iNaturalist API. |
-| `EDA/project_41347_research_photos.csv` | Photo metadata and image URLs for the research-grade observations. |
-| `EDA/Data/` | Additional dataset snapshots, including `Dataset-03-02-26.csv`, `final_df.csv`, and another observation export. |
-| `Scraping/` | iNaturalist scraping notebooks and large raw API result CSVs, including licensed and unfiltered observation outputs. |
-| `prompts/dataset_with_prompts.csv`, `prompts/dataset_with_prompts_1phrase.csv`, `prompts/dataset_with_prompts_a100.csv` | Dataset variants augmented with `grounding_dino_prompt` text for organism-aware localization. |
-| `prompts/load_dataset.py` | Downloads images from processed dataset URLs using a priority order of original, large, medium, then square image URLs. |
-| `prompts/image_extraction.py` | Small image download/extraction helper script. |
-| `notebooks/classification.ipynb` | BioCLIP2 species classification workflow for cropped image inputs. |
-| `notebooks/classification_baseline.ipynb` | Baseline BioCLIP2 workflow for full-image classification. |
-| `notebooks/classification_crop.ipynb` | BioCLIP2 workflow for cropped bounding-box outputs. |
-| `notebooks/crop.ipynb` | Crop-generation notebook that uses bounding-box coordinates to extract organism regions. |
-| `notebooks/Visualization.ipynb` | Visualizes classification and crop results with image grids and annotations. |
-| `notebooks/prompt_engineering/` | LLaMA / Hugging Face prompt-engineering notebooks and Python scripts for creating GroundingDINO detection prompts. |
-| `notebooks/bounding_boxes/bounding_boxes_full_dataset.py` | Runs GroundingDINO with generated prompts over the image dataset and writes bounding-box and summary CSVs. |
-| `results/baseline_eval.ipynb` | Baseline full-image BioCLIP2 evaluation notebook. |
-| `results/baseline.csv` | Baseline evaluation output with top-k predictions and taxonomic match columns. |
-| `results/results_crop_eval.ipynb` | Crop-based pipeline evaluation notebook for hierarchical taxonomic matching and accuracy analysis. |
-| `results/results_crop.csv`, `results/results_crop_updated.csv`, `results/results_crop_old.csv`, `results/results_crop_new.csv` | Crop-based BioCLIP2 prediction and evaluation outputs. |
-| `results/outputs_bioclip/` | Baseline BioCLIP2 full-image model outputs. |
-| `results/outputs_bioclip_crop/` | Crop-based BioCLIP2 prediction outputs and matched result tables. |
-| `results/outputs_gd/` | GroundingDINO bounding-box outputs, including full-dataset box and summary CSVs. |
-| `results/unmatch_class.csv`, `results/unmatch_family.csv`, `results/unmatch_order.csv` | Taxonomic mismatch tables grouped by unmatched class, family, or order fields. |
-| `outputs/` | Experimental SAM/SAM2-style segmentation and bounding-box outputs. |
-| `analysis_outputs/` | Downstream taxonomic-distance and top-k confusion analysis outputs. |
-| `images/` | Small local/sample image folder, not the full iNaturalist image dataset. |
+| Path                                                                                                                           | Purpose                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `EDA/README.txt`                                                                                                               | Documents the iNaturalist export query and column meanings for the Who-Eats-Whom observations.                                                   |
+| `EDA/Cleaning.ipynb`                                                                                                           | Pulls observation data from the iNaturalist API and performs preprocessing / cleaning.                                                           |
+| `EDA/link.ipynb`                                                                                                               | Extracts and checks partner-observation links from iNaturalist observation fields.                                                               |
+| `EDA/obs_check.ipynb`                                                                                                          | Evaluates whether observation and partner IDs are present in the processed dataset.                                                              |
+| `EDA/Phylum_Class_Distribution.ipynb`                                                                                          | Computes phylum/class distribution summaries and sample selections.                                                                              |
+| `EDA/Dataset.csv`                                                                                                              | Main processed CSV used by downstream pipeline stages; includes observation IDs, photo URLs, labels, predator/prey fields, and taxonomy columns. |
+| `EDA/check.csv`                                                                                                                | Observation/partner-ID verification table with match flags.                                                                                      |
+| `EDA/correct.csv`                                                                                                              | Invalid-link correction/check table with `Invalid_link`, `category`, and `correct` columns.                                                      |
+| `EDA/link1.csv`                                                                                                                | Observation records with extracted `partner_ids`.                                                                                                |
+| `EDA/observations-704882.csv`                                                                                                  | iNaturalist Who-Eats-Whom observation export.                                                                                                    |
+| `EDA/project_41347_research_observations.csv`                                                                                  | Research-grade observation metadata pulled from the iNaturalist API.                                                                             |
+| `EDA/project_41347_research_photos.csv`                                                                                        | Photo metadata and image URLs for the research-grade observations.                                                                               |
+| `EDA/Data/`                                                                                                                    | Additional dataset snapshots, including `Dataset-03-02-26.csv`, `final_df.csv`, and another observation export.                                  |
+| `Scraping/`                                                                                                                    | iNaturalist scraping notebooks and large raw API result CSVs, including licensed and unfiltered observation outputs.                             |
+| `prompts/dataset_with_prompts.csv`, `prompts/dataset_with_prompts_1phrase.csv`, `prompts/dataset_with_prompts_a100.csv`        | Dataset variants augmented with `grounding_dino_prompt` text for organism-aware localization.                                                    |
+| `prompts/load_dataset.py`                                                                                                      | Downloads images from processed dataset URLs using a priority order of original, large, medium, then square image URLs.                          |
+| `prompts/image_extraction.py`                                                                                                  | Small image download/extraction helper script.                                                                                                   |
+| `notebooks/classification.ipynb`                                                                                               | BioCLIP2 species classification workflow for cropped image inputs.                                                                               |
+| `notebooks/classification_baseline.ipynb`                                                                                      | Baseline BioCLIP2 workflow for full-image classification.                                                                                        |
+| `notebooks/classification_crop.ipynb`                                                                                          | BioCLIP2 workflow for cropped bounding-box outputs.                                                                                              |
+| `notebooks/crop.ipynb`                                                                                                         | Crop-generation notebook that uses bounding-box coordinates to extract organism regions.                                                         |
+| `notebooks/Visualization.ipynb`                                                                                                | Visualizes classification and crop results with image grids and annotations.                                                                     |
+| `notebooks/prompt_engineering/`                                                                                                | LLaMA / Hugging Face prompt-engineering notebooks and Python scripts for creating GroundingDINO detection prompts.                               |
+| `notebooks/bounding_boxes/bounding_boxes_full_dataset.py`                                                                      | Runs GroundingDINO with generated prompts over the image dataset and writes bounding-box and summary CSVs.                                       |
+| `results/baseline_eval.ipynb`                                                                                                  | Baseline full-image BioCLIP2 evaluation notebook.                                                                                                |
+| `results/baseline.csv`                                                                                                         | Baseline evaluation output with top-k predictions and taxonomic match columns.                                                                   |
+| `results/results_crop_eval.ipynb`                                                                                              | Crop-based pipeline evaluation notebook for hierarchical taxonomic matching and accuracy analysis.                                               |
+| `results/results_crop.csv`, `results/results_crop_updated.csv`, `results/results_crop_old.csv`, `results/results_crop_new.csv` | Crop-based BioCLIP2 prediction and evaluation outputs.                                                                                           |
+| `results/outputs_bioclip/`                                                                                                     | Baseline BioCLIP2 full-image model outputs.                                                                                                      |
+| `results/outputs_bioclip_crop/`                                                                                                | Crop-based BioCLIP2 prediction outputs and matched result tables.                                                                                |
+| `results/outputs_gd/`                                                                                                          | GroundingDINO bounding-box outputs, including full-dataset box and summary CSVs.                                                                 |
+| `results/unmatch_class.csv`, `results/unmatch_family.csv`, `results/unmatch_order.csv`                                         | Taxonomic mismatch tables grouped by unmatched class, family, or order fields.                                                                   |
+| `outputs/`                                                                                                                     | Experimental SAM/SAM2-style segmentation and bounding-box outputs.                                                                               |
+| `analysis_outputs/`                                                                                                            | Downstream taxonomic-distance and top-k confusion analysis outputs.                                                                              |
+| `images/`                                                                                                                      | Small local/sample image folder, not the full iNaturalist image dataset.                                                                         |
 
 ### Expected / Not Included / Naming Notes
 
 - `models/` is not present in the repository. Model weights are excluded by `.gitignore`.
-- `EDA/Dataset/` is not present as a folder. The repository contains `EDA/Dataset.csv` and `EDA/Data/`.
-- `EDA/Dataset_eda/` is not present as a folder. The repository contains `EDA/dataset_eda.ipynb`.
-- `EDA/link.csv` is not present. The verified partner-link CSV in this repository is `EDA/link1.csv`.
-- `EDA/phylum_samples/` is not present as a folder. The repository contains phylum sample CSV files such as `EDA/phylum_samples.csv`, `EDA/phylum_samples_1.csv`, and `EDA/outputs/phylum_samples.csv`.
-- `results/results_baseline/` is not present as a folder. Baseline outputs are stored in `results/outputs_bioclip/` and related baseline CSV files.
-- `results/results_crop/` is not present as a folder. Crop outputs are stored in `results/outputs_bioclip_crop/` and the crop result CSV variants listed above.
-- `results/unmatch.csv` is not present. The repository contains `unmatch_class.csv`, `unmatch_family.csv`, `unmatch_order.csv`, and `unmatch.xlsx`.
 - The full image dataset, crop image outputs, SAM image outputs, and model weight files are excluded by `.gitignore`.
 
 ## Data and Model Availability
 
 The raw iNaturalist image dataset is not uploaded to GitHub because of iNaturalist licensing constraints and GitHub storage limits. Cropped output images such as `output_crop` / crop-image folders are also not uploaded because they are derived from the original licensed image dataset and can be large.
+
+Some generated output files may be stored as compressed ZIP archives because of file size and GitHub storage restrictions. Extract these archives locally before inspecting or reusing the contained outputs.
 
 Model weights are not uploaded because of storage limits. Users must configure external model access before reproducing the full pipeline.
 
@@ -340,7 +335,7 @@ https://www.notion.so/Data-Validation-Pipeline-30336e25953d807f933accac74e7dec6
 
 ## Contributors
 
-- **Surabhi Ravindran Nair**
+- **Surabhi Ravindran Nair** 
 - **Lavanya Middha**
 - Under supervision of **Dr. Aditi Mallavarapu**
 
