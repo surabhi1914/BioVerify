@@ -1,0 +1,11 @@
+image,n_boxes,top_score,overlay
+image_0.jpg,4,0.58002108335495,outputs\annotated_top4\image_0_top4.png
+image_1.JPG,4,0.6139122247695923,outputs\annotated_top4\image_1_top4.png
+image_2.jpg,4,0.5615910887718201,outputs\annotated_top4\image_2_top4.png
+image_3.jpg,4,0.39611202478408813,outputs\annotated_top4\image_3_top4.png
+image_4.JPG,4,0.48237869143486023,outputs\annotated_top4\image_4_top4.png
+image_5.jpg,4,0.7166374325752258,outputs\annotated_top4\image_5_top4.png
+image_6.jpg,4,0.4409637153148651,outputs\annotated_top4\image_6_top4.png
+image_7.jpg,4,0.5299780964851379,outputs\annotated_top4\image_7_top4.png
+image_8.jpg,4,0.4654795527458191,outputs\annotated_top4\image_8_top4.png
+image_9.jpg,4,0.5087656378746033,outputs\annotated_top4\image_9_top4.png
